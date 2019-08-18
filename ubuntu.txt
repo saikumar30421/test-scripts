@@ -17,11 +17,15 @@ touch maven.sh
 echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64">>maven.sh
 echo "export MAVEN_HOME=/opt/apache-maven">>maven.sh
 echo "export M2_HOME=/opt/apache-maven">>maven.sh
-echo "export PATH=${JAVA_HOME}/bin:${M2_HOME}/bin:$PATH">>maven.sh
 sudo mv maven.sh /etc/profile.d/
+sudo source /etc/profile.d/maven.sh
+echo "export PATH=${JAVA_HOME}/bin:${M2_HOME}/bin:$PATH">>maven.sh
+sudo source /etc/profile.d/maven.sh
+
 ##### jenkins-installation #####
 wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
 sudo echo "deb  https://pkg.jenkins.io/debian-stable binary/">>/etc/apt/sources.list
+sudo apt update -y
 sudo apt-get install jenkins -y
 
 

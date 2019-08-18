@@ -16,9 +16,11 @@ touch maven.sh
 echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el8_0.x86_64">>maven.sh
 echo "export MAVEN_HOME=/opt/apache-maven">>maven.sh
 echo "export M2_HOME=/opt/apache-maven">>maven.sh
-echo "export PATH=${JAVA_HOME}/bin:${M2_HOME}/bin:$PATH">>maven.sh ##### need to add manually ####
 sudo mv maven.sh /etc/profile.d/
-source /etc/profile.d/maven.sh
+sudo source /etc/profile.d/maven.sh
+echo "export PATH=${JAVA_HOME}/bin:${M2_HOME}/bin:$PATH">>maven.sh
+sudo source /etc/profile.d/maven.sh
+
 ##### jenkins-installation #####
 sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
 sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
