@@ -1,0 +1,53 @@
+##### java-installation ######
+#!/bin/bash
+sudo su
+sudo yum update -y
+sudo yum search openjdk
+sudo yum install java-1.8.0-openjdk-devel.x86_64 -y
+##### maven-installation ####
+cd /opt/
+sudo yum install wget -y
+sudo wget http://apachemirror.wuchna.com/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz
+sudo tar -xzf apache-maven-3.6.1-bin.tar.gz
+sudo mv apache-maven-3.6.1/ apache-maven
+sudo rm -rf apache-maven-3.6.1-bin.tar.gz
+cd /home/
+touch maven.sh 
+echo "export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.222.b10-0.el8_0.x86_64">>maven.sh
+echo "export MAVEN_HOME=/opt/apache-maven">>maven.sh
+echo "export M2_HOME=/opt/apache-maven">>maven.sh
+echo "export PATH=${JAVA_HOME}/bin:${M2_HOME}/bin:$PATH">>maven.sh ##### need to add manually ####
+sudo mv maven.sh /etc/profile.d/
+source /etc/profile.d/maven.sh
+##### jenkins-installation #####
+sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+sudo yum install jenkins -y
+
+################ tomcat ##########
+sudo su
+
+cd /opt
+wget http://mirrors.fibergrid.in/apache/tomcat/tomcat-8/v8.5.35/bin/apache-tomcat-8.5.35.tar.gz
+tar -xvzf /opt/apache-tomcat-8.5.35.tar.gz
+chmod +x /opt/apache-tomcat-8.5.35/bin/startup.sh shutdown.sh
+ln -s /opt/apache-tomcat-8.5.35/bin/startup.sh /usr/local/bin/tomcatup
+ln -s /opt/apache-tomcat-8.5.35/bin/shutdown.sh /usr/local/bin/tomcatdown
+
+
+cd /opt/apache-tomcat-8.5.35/conf
+# update port number in the "connecter port" field in server.xml
+# restart tomcat after configuration update
+tomcatdown
+tomcatup
+find / -name context.xml   ###### comment the value ######
+
+<role rolename="manager-gui"/>
+<role rolename="manager-script"/>
+<role rolename="manager-jmx"/>
+<role rolename="manager-status"/>
+<user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+<user username="deployer" password="deployer" roles="manager-script"/>
+<user username="tomcat" password="s3cret" roles="manager-gui"/>
+
+############## 
