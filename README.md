@@ -1,2 +1,2 @@
 # test-scripts
-All the practice scripts for devops and 
+All the practice scripts for devops and  AWS
