@@ -30,7 +30,7 @@ sudo yum install jenkins -y
 sudo su
 
 cd /opt
-wget http://mirrors.fibergrid.in/apache/tomcat/tomcat-8/v8.5.35/bin/apache-tomcat-8.5.35.tar.gz
+wget http://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.43/bin/apache-tomcat-8.5.43.tar.gz
 tar -xvzf /opt/apache-tomcat-8.5.35.tar.gz
 chmod +x /opt/apache-tomcat-8.5.35/bin/startup.sh shutdown.sh
 ln -s /opt/apache-tomcat-8.5.35/bin/startup.sh /usr/local/bin/tomcatup
